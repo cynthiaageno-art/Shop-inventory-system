@@ -152,3 +152,50 @@ class Shop: # This class manages the entire Guild Canteen inventory.
         print(f"Product code: {product_code}")
         print(f"Product name: {name}")
 
+
+        # ADD PRODUCT MANUALLY
+    # This method is mainly used by the TEST DEMO. It allows us to create sample products without typing everything manually.
+   
+    def add_demo_product(self, product_code, name, price, quantity, expiry):
+
+        # Create Product object.
+        product = Product(product_code, name, price, quantity, expiry)
+
+        # Store it in the shop.
+        self.products.append(product)
+
+        print(f"Added: {product_code} - {name} " f"({quantity} items)")
+
+
+    # VIEW PRODUCTS
+    def view_products(self):
+
+        print("\nGUILD CANTEEN PRODUCTS")
+
+        if len(self.products) == 0: # Check whether the list is empty.
+            print("No products available.")
+            return
+
+        for number, product in enumerate(self.products, 1): # Display products with numbers.
+            print(f"\n{number}.")
+            product.show()
+
+    # SELECT PRODUCT
+
+    def select_product(self):
+        self.view_products()  # Display all products first.
+        if len(self.products) == 0: # If no products exist, return nothing.
+            return None
+
+        try:
+            number = int(input("Enter product number: ")) - 1  # Ask the user for product number.
+
+            if 0 <= number < len(self.products): # Check if selected number is valid.
+                return self.products[number]
+            print("Invalid product number.")
+            return None
+        except ValueError:
+
+            print("Please enter a valid number.")
+            return None
+
