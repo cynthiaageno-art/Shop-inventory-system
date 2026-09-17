@@ -1,5 +1,5 @@
-from datetime import date
 
+from datetime import date
 
 class Product: # This class represents one product sold at Guild Canteen.
 
