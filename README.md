@@ -87,3 +87,68 @@ class Product: # This class represents one product sold at Guild Canteen.
             f"Status: {status}"
             f"Stock: {stock_status}"
         )
+
+
+        # SHOP CLASS
+
+class Shop: # This class manages the entire Guild Canteen inventory.
+    def __init__(self):
+        self.products = [] # List used to store Product objects.
+
+    # ADD PRODUCT
+    def add_product(self):
+        print("\nADD PRODUCT TO GUILD CANTEEN")
+        product_code = input("Product code: ").strip()  # Ask for product code.
+
+        if product_code == "": # Product code cannot be empty.
+            print("Product code cannot be empty.")
+            return
+
+        for product in self.products: # Check whether product code already exists.
+            if product.product_code.upper() == product_code.upper():
+                print("That product code already exists.")
+                return
+
+        name = input("Product name: ").strip() # Ask for product name.
+
+        if name == "":
+            print("Product name cannot be empty.")
+            return
+
+        try:
+            price = float(input("Selling price (UGX): "))  
+            quantity = int(input("Quantity: ")) 
+
+        except ValueError:
+            print("Please enter valid numbers.")
+            return
+
+       
+        if price <= 0:  
+            print("Price must be greater than zero.") # Price must be positive.
+            return
+
+        if quantity < 0:  # Quantity cannot be negative.
+            print("Quantity cannot be negative.")
+            return
+
+        expiry = input("Expiry date (YYYY-MM-DD or N/A): ").strip()  # Ask for expiry date.
+        if expiry.upper() != "N/A": # Validate expiry date.
+
+            try:
+                date.fromisoformat(expiry)
+            except ValueError:
+                print(
+                    "Invalid expiry date. "
+                    "Use YYYY-MM-DD or N/A."
+                )
+                return
+
+        product = Product(product_code, name, price, quantity, expiry) # Create a Product object.
+
+        self.products.append(product) # Add the Product object to the shop.
+
+        print("\nProduct added successfully.")
+        print(f"Product code: {product_code}")
+        print(f"Product name: {name}")
+
